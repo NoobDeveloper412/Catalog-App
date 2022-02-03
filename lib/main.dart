@@ -1,6 +1,7 @@
 import 'package:catalog_app/screens/HomePage.dart';
 import 'package:catalog_app/screens/LoginPage.dart';
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_catalog/screens/login_page.dart';
 
 
@@ -16,15 +17,18 @@ class MyApp extends StatelessWidget {
     // BuildContext and Context are used because as we know that the flutter language works on a tree design, these works as a data locator
     return MaterialApp(
       themeMode: ThemeMode.light,
-      // theme: ThemeData(primarySwatch: Colors.deepPurple),
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        fontFamily: GoogleFonts.lato().fontFamily,
+      ),
       darkTheme: ThemeData(
         brightness: Brightness.dark,
-        // primarySwatch:Colors.green
+        // primaryTextTheme: GoogleFonts.latoTextTheme()
       ),
-      initialRoute: '/home',
+      initialRoute: '/login',
       routes:{
        "/home":(context) => HomePage(),
-        "/":(context) => LoginPage(),
+        "/login":(context) => LoginPage(),
       },
     );
   }
