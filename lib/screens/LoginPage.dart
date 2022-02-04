@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
+  _LoginPageState createState() {
+    return _LoginPageState();
+  }
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -70,7 +72,7 @@ if (_formKey.currentState!.validate()) {
 
                           return null;
                         },
-                        onChanged: (value) {
+                        onChanged: (value) async {
                           name = value;
                           setState(() {});
                         },

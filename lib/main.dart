@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
     // BuildContext and Context are used because as we know that the flutter language works on a tree design, these works as a data locator
     return MaterialApp(
       themeMode: ThemeMode.light,
-      // debugShowCheckedModeBanner: false,
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         primarySwatch: Colors.deepPurple,
         fontFamily: GoogleFonts.lato().fontFamily,
@@ -27,9 +27,9 @@ class MyApp extends StatelessWidget {
         brightness: Brightness.dark,
         // primaryTextTheme: GoogleFonts.latoTextTheme()
       ),
-      initialRoute: '/login',
+      initialRoute: '/home',
       routes:{
-       DefaultRoutes.homeRoute:(context) => HomePage(),
+       DefaultRoutes.homeRoute:(context) =>  HomePage(),
         DefaultRoutes.loginRoute:(context) =>  LoginPage(),
       },
     );
