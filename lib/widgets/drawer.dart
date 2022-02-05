@@ -6,49 +6,64 @@ class MainDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const imgURL =
+    const String imageUrl =
         "https://tse2.mm.bing.net/th?id=OIP.AVPaOWCyn7YccmZCdSevgAHaJP&pid=Api&P=0&w=146&h=182";
     return Drawer(
       child: Container(
         color: Colors.deepPurple,
         child: ListView(
           padding: EdgeInsets.zero,
-          children: const [
-            DrawerHeader(
-              // decoration: BoxDecoration(color: Colors.red),
+          children: [
+            const DrawerHeader(
               padding: EdgeInsets.zero,
               child: UserAccountsDrawerHeader(
-                accountName: Text('Muhammad Zuhair'),
-                accountEmail: Text('test@gmail.com'),
+                margin: EdgeInsets.zero,
+                accountName: Text("Muhammad Zuhair"),
+                accountEmail: Text("text@gmail.com"),
                 currentAccountPicture: CircleAvatar(
-                  backgroundImage: NetworkImage(imgURL),
+                  backgroundImage: NetworkImage(imageUrl),
                 ),
               ),
             ),
-            ListTile(
-              leading: Icon(CupertinoIcons.home, color: Colors.white),
-              title: Text(
-                'Home',
+            const ListTile(
+              leading: Icon(
+                CupertinoIcons.home,
+                color: Colors.white,
+              ),
+              title: const Text(
+                "Home",
                 textScaleFactor: 1.2,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
-            ListTile(
-              leading: Icon(CupertinoIcons.profile_circled, color: Colors.white),
+            const ListTile(
+              leading: Icon(
+                CupertinoIcons.profile_circled,
+                color: Colors.white,
+              ),
               title: Text(
-                'Profile',
+                "Profile",
                 textScaleFactor: 1.2,
-                style: TextStyle(color: Colors.white),
+                style: const TextStyle(
+                  color: Colors.white,
+                ),
               ),
             ),
-            ListTile(
-              leading: Icon(CupertinoIcons.mail, color: Colors.white),
-              title: Text(
-                'Email Us',
-                textScaleFactor: 1.2,
-                style: TextStyle(color: Colors.white),
+            const ListTile(
+              leading: Icon(
+                CupertinoIcons.mail,
+                color: Colors.white,
               ),
-            ),
+              title: Text(
+                "Email me",
+                textScaleFactor: 1.2,
+                style: TextStyle(
+                  color: Colors.white,
+                ),
+              ),
+            )
           ],
         ),
       ),
