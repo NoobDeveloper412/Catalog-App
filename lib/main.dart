@@ -1,10 +1,10 @@
 import 'package:catalog_app/screens/HomePage.dart';
 import 'package:catalog_app/screens/LoginPage.dart';
 import 'package:catalog_app/utils/routes.dart';
+import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 // import 'package:flutter_catalog/screens/login_page.dart';
-
 
 void main() {
   runApp(MyApp());
@@ -15,22 +15,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // BuildContext and Context are used because as we know that the flutter language works on a tree design, these works as a data locator
     return MaterialApp(
       themeMode: ThemeMode.light,
+      theme: DefaultTheme.lightTheme(context),
+      darkTheme: DefaultTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-        primarySwatch: Colors.deepPurple,
-        fontFamily: GoogleFonts.lato().fontFamily,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        // primaryTextTheme: GoogleFonts.latoTextTheme()
-      ),
-      initialRoute: '/home',
-      routes:{
-       DefaultRoutes.homeRoute:(context) =>  HomePage(),
-        DefaultRoutes.loginRoute:(context) =>  LoginPage(),
+      initialRoute: DefaultRoutes.homeRoute,
+      routes: {
+        "/": (context) => LoginPage(),
+        DefaultRoutes.homeRoute: (context) => HomePage(),
+        DefaultRoutes.loginRoute: (context) => LoginPage()
       },
     );
   }
