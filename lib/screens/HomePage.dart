@@ -1,5 +1,10 @@
-import 'package:catalog_app/widgets/drawer.dart';
+import 'dart:convert';
+
+import 'package:catalog_app/models/catalogModel.dart';
+import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -89,17 +94,6 @@ class _HomePageState extends State<HomePage> {
   // This list holds the data for the list view
   List<Map<String, dynamic>> _foundProducts = [];
 
-  // loadData() async {
-  //   await Future.delayed(const Duration(seconds: 2));
-  //   final catalogJson =
-  //       await rootBundle.loadString("assets/files/catalog.json");
-  // final decodedData = jsonDecode(catalogJson);
-  // CatalogModel.items = List.from(productsData)
-  //     .map<Item>((item) => Item.fromMap(item))
-  //     .toList();
-  //   setState(() {});
-  // }
-
   @override
   initState() {
     // at the beginning, all users are shown
@@ -138,53 +132,93 @@ class _HomePageState extends State<HomePage> {
           }
         },
         child: Scaffold(
-          appBar: AppBar(
-            centerTitle: false,
-            title: const Text('Catalog App'),
-          ),
-          body: Padding(
-            padding: const EdgeInsets.all(10),
-            child: Column(
-              children: [
-                TextField(
-                  onChanged: (value) => _runFilter(value),
-                  decoration: const InputDecoration(
-                      labelText: 'Search', suffixIcon: Icon(Icons.search)),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                Expanded(
-                  child: _foundProducts.isNotEmpty
-                      ? ListView.builder(
+            backgroundColor: DefaultTheme.creamColor,
+            body: SafeArea(
+              child: Container(
+                padding: Vx.m32,
+                child: SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      "Catalog App"
+                          .text
+                          .xl5
+                          .bold
+                          .color(DefaultTheme.darkBluishColor)
+                          .make(),
+                      "Trending products".text.xl2.make(),
+                      TextField(
+                        onChanged: (value) => _runFilter(value),
+                        decoration: const InputDecoration(
+                            labelText: 'Search', suffixIcon: Icon(Icons.search)),
+                      ),
+                      if (_foundProducts.isNotEmpty)
+                        ListView.builder(
+                          physics: const NeverScrollableScrollPhysics(),
+                          shrinkWrap: true,
                           itemCount: _foundProducts.length,
-                          itemBuilder: (context, index) => Card(
-                                key: ValueKey(_foundProducts[index]["id"]),
-                                child: ListTile(
-                                  leading: Image.network(
-                                    _foundProducts[index]["image"],
+                          itemBuilder: (context, index) => VxBox(
+                              child: Row(
+                                children: [
+                                  CatalogImage(
+                                    image: _foundProducts[index]['image'],
                                   ),
-                                  title: Text(_foundProducts[index]['name']),
-                                  subtitle: Text(_foundProducts[index]["desc"]),
-                                  trailing: Text(
-                                    "\$${_foundProducts[index]["price"]}",
-                                    textScaleFactor: 1.5,
-                                    style: const TextStyle(
-                                      color: Colors.deepPurple,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                ),
-                              ))
-                      : const Text(
-                          'No results found',
-                          style: TextStyle(fontSize: 24),
-                        ),
+                                  Expanded(
+                                      child: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text(
+                                        _foundProducts[index]['name'],
+                                      ),
+
+                                      Text(
+                                        _foundProducts[index]['desc'],
+                                      ),
+                                      10.heightBox,
+                                      ButtonBar(
+                                        alignment: MainAxisAlignment.spaceBetween,
+                                        buttonPadding: EdgeInsets.zero,
+                                        children: [
+                                          Text(
+                                              "\$${_foundProducts[index]['price']}"),
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ButtonStyle(
+                                                backgroundColor:
+                                                    MaterialStateProperty.all(
+                                                  DefaultTheme.darkBluishColor,
+                                                ),
+                                                shape: MaterialStateProperty.all(
+                                                  const StadiumBorder(),
+                                                )),
+                                            child: "Buy".text.make(),
+                                          )
+                                        ],
+                                      ).pOnly(right: 8.0)
+                                    ],
+                                  ))
+                                ],
+                              ),
+                            ).white.rounded.square(150).make().py16(),
+                        )
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
-          drawer: const MainDrawer(),
-        ));
+              ),
+            )));
+  }
+}
+
+class CatalogImage extends StatelessWidget {
+  final String image;
+
+  const CatalogImage({Key? key, required this.image}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Image.network(
+      image,
+    ).box.rounded.p8.color(DefaultTheme.creamColor).make().p16().w40(context);
   }
 }
