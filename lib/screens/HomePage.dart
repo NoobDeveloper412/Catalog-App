@@ -189,9 +189,10 @@ class _HomePageState extends State<HomePage> {
                                                     MaterialStateProperty.all(
                                                   DefaultTheme.darkBluishColor,
                                                 ),
-                                                shape: MaterialStateProperty.all(
-                                                  const StadiumBorder(),
-                                                )),
+                                                // shape: MaterialStateProperty.all(
+                                                //   const StadiumBorder(),
+                                                // )
+                                              ),
                                             child: "Buy".text.make(),
                                           )
                                         ],
