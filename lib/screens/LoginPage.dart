@@ -1,5 +1,7 @@
 import 'package:catalog_app/utils/routes.dart';
+import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -15,23 +17,22 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   moveToHome(BuildContext context) async {
-if (_formKey.currentState!.validate()) {
-  setState(() {
-    changeButton = true;
-  });
-  await Future.delayed(const Duration(seconds: 1));
-  await Navigator.pushNamed(context, DefaultRoutes.homeRoute);
-  setState(() {
-    changeButton = false;
-  });
-}
+    if (_formKey.currentState!.validate()) {
+      setState(() {
+        changeButton = true;
+      });
+      await Future.delayed(const Duration(seconds: 1));
+      await Navigator.pushNamed(context, DefaultRoutes.homeRoute);
+      setState(() {
+        changeButton = false;
+      });
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-        color: Colors.white,
-        child: SingleChildScrollView(
+    return Scaffold(
+        body: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
@@ -43,13 +44,7 @@ if (_formKey.currentState!.validate()) {
                 const SizedBox(
                   height: 20.0,
                 ),
-                Text(
-                  "Welcome $name",
-                  style: const TextStyle(
-                    fontSize: 28,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
+                "Welcome".text.xl5.bold.color(context.theme.accentColor).make(),
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -66,7 +61,7 @@ if (_formKey.currentState!.validate()) {
                         validator: (value) {
                           if (value!.isEmpty) {
                             return "Username cannot be empty";
-                          }else if (value.length < 8){
+                          } else if (value.length < 8) {
                             return "Username has to be at least 8 characters long.";
                           }
 

@@ -1,43 +1,33 @@
-import 'package:catalog_app/widgets/themes.dart';
+import 'package:catalog_app/models/catalogModel.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomeDetailPage extends StatelessWidget {
-  final String title;
-  final String desc;
-  final String image;
-  final String id;
-  final int price;
+  final Item catalog;
 
-  const HomeDetailPage(
-      {Key? key,
-      required this.title,
-      required this.desc,
-      required this.image,
-      required this.id,
-      required this.price});
+  const HomeDetailPage({Key? key, required this.catalog})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
-      backgroundColor: DefaultTheme.creamColor,
+      appBar: AppBar(backgroundColor: Colors.transparent),
+      backgroundColor: context.canvasColor,
       bottomNavigationBar: Container(
-        color: Colors.white,
+        color: context.cardColor,
         child: ButtonBar(
           alignment: MainAxisAlignment.spaceBetween,
           buttonPadding: EdgeInsets.zero,
           children: [
-            "\$$price".text.bold.xl4.red800.make(),
+            "\$${catalog.price}".text.bold.xl4.red800.make(),
             ElevatedButton(
               onPressed: () {},
               style: ButtonStyle(
-                  backgroundColor: MaterialStateProperty.all(
-                    DefaultTheme.darkBluishColor,
-                  ),
-                ),
-              child: "Buy".text.make(),
-            ).wh(100, 50)
+                backgroundColor:
+                    MaterialStateProperty.all(context.theme.buttonColor),
+              ),
+              child: "Add to cart".text.make(),
+            ).wh(120, 50)
           ],
         ).p32(),
       ),
@@ -46,8 +36,8 @@ class HomeDetailPage extends StatelessWidget {
         child: Column(
           children: [
             Hero(
-              tag: Key(id),
-              child: Image.network(image),
+              tag: Key(catalog.id.toString()),
+              child: Image.network(catalog.image),
             ).h32(context),
             Expanded(
                 child: VxArc(
@@ -55,16 +45,21 @@ class HomeDetailPage extends StatelessWidget {
               arcType: VxArcType.CONVEY,
               edge: VxEdge.TOP,
               child: Container(
-                color: Colors.white,
+                color: context.cardColor,
                 width: context.screenWidth,
                 child: Column(
                   children: [
-                    title.text.xl4
-                        .color(DefaultTheme.darkBluishColor)
+                    catalog.name.text.xl4
+                        .color(context.accentColor)
                         .bold
                         .make(),
-                    desc.text.textStyle(context.captionStyle).xl.make(),
+                    catalog.desc.text.textStyle(context.captionStyle).xl.make(),
                     10.heightBox,
+                    "Dolor sea takimata ipsum sea eirmod aliquyam est. Eos ipsum voluptua eirmod elitr, no dolor dolor amet eirmod dolor labore dolores magna. Amet vero vero vero kasd, dolore sea sed sit invidunt nonumy est sit clita. Diam aliquyam amet tempor diam no aliquyam invidunt. Elitr lorem eirmod dolore clita. Rebum."
+                        .text
+                        .textStyle(context.captionStyle)
+                        .make()
+                        .p16()
                   ],
                 ).py64(),
               ),
