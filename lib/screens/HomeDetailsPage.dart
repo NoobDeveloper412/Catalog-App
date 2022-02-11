@@ -35,9 +35,7 @@ class HomeDetailPage extends StatelessWidget {
                   backgroundColor: MaterialStateProperty.all(
                     DefaultTheme.darkBluishColor,
                   ),
-                  shape: MaterialStateProperty.all(
-                    const StadiumBorder(),
-                  )),
+                ),
               child: "Buy".text.make(),
             ).wh(100, 50)
           ],
