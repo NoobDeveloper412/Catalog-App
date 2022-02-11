@@ -1,9 +1,6 @@
-import 'dart:convert';
-
-import 'package:catalog_app/models/catalogModel.dart';
+import 'package:catalog_app/screens/HomeDetailsPage.dart';
 import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -56,7 +53,7 @@ class _HomePageState extends State<HomePage> {
     {
       "id": 5,
       "name": "Airpods Pro",
-      "desc": "Apple Aipods Pro 1st generation",
+      "desc": "Apple Airpods Pro 1st generation",
       "price": 200,
       "color": "#e3e4e9",
       "image":
@@ -150,14 +147,26 @@ class _HomePageState extends State<HomePage> {
                       TextField(
                         onChanged: (value) => _runFilter(value),
                         decoration: const InputDecoration(
-                            labelText: 'Search', suffixIcon: Icon(Icons.search)),
+                            labelText: 'Search...',
+                            suffixIcon: Icon(Icons.search)),
                       ),
                       if (_foundProducts.isNotEmpty)
                         ListView.builder(
                           physics: const NeverScrollableScrollPhysics(),
                           shrinkWrap: true,
                           itemCount: _foundProducts.length,
-                          itemBuilder: (context, index) => VxBox(
+                          itemBuilder: (context, index) => InkWell(
+                            onTap: () => Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => HomeDetailPage(
+                                        title: _foundProducts[index]['name'],
+                                        desc: _foundProducts[index]['desc'],
+                                        id: _foundProducts[index]['key'],
+                                        price: _foundProducts[index]['price'],
+                                        image: _foundProducts[index]
+                                            ['image']))),
+                            child: VxBox(
                               child: Row(
                                 children: [
                                   CatalogImage(
@@ -165,19 +174,20 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Expanded(
                                       child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [
                                       Text(
                                         _foundProducts[index]['name'],
                                       ),
-
                                       Text(
                                         _foundProducts[index]['desc'],
                                       ),
                                       10.heightBox,
                                       ButtonBar(
-                                        alignment: MainAxisAlignment.spaceBetween,
+                                        alignment:
+                                            MainAxisAlignment.spaceBetween,
                                         buttonPadding: EdgeInsets.zero,
                                         children: [
                                           Text(
@@ -185,14 +195,11 @@ class _HomePageState extends State<HomePage> {
                                           ElevatedButton(
                                             onPressed: () {},
                                             style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all(
-                                                  DefaultTheme.darkBluishColor,
-                                                ),
-                                                // shape: MaterialStateProperty.all(
-                                                //   const StadiumBorder(),
-                                                // )
+                                              backgroundColor:
+                                                  MaterialStateProperty.all(
+                                                DefaultTheme.darkBluishColor,
                                               ),
+                                            ),
                                             child: "Buy".text.make(),
                                           )
                                         ],
@@ -202,6 +209,7 @@ class _HomePageState extends State<HomePage> {
                                 ],
                               ),
                             ).white.rounded.square(150).make().py16(),
+                          ),
                         )
                     ],
                   ),
