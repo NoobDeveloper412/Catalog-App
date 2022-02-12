@@ -1,32 +1,30 @@
-import 'package:catalog_app/screens/CartPage.dart';
-import 'package:catalog_app/screens/HomePage.dart';
-import 'package:catalog_app/screens/LoginPage.dart';
+import 'package:catalog_app/pages/cart_page.dart';
+import 'package:catalog_app/pages/login_page.dart';
 import 'package:catalog_app/utils/routes.dart';
-import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
+import 'package:velocity_x/velocity_x.dart';
+import 'core/store.dart';
+import 'pages/home_page.dart';
+import 'widgets/themes.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(VxState(store: MyStore(), child: MyApp()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       themeMode: ThemeMode.system,
-      theme: DefaultTheme.lightTheme(context),
-      darkTheme: DefaultTheme.darkTheme(context),
+      theme: MyTheme.lightTheme(context),
+      darkTheme: MyTheme.darkTheme(context),
       debugShowCheckedModeBanner: false,
-      initialRoute: DefaultRoutes.homeRoute,
-
+      initialRoute: MyRoutes.homeRoute,
       routes: {
         "/": (context) => LoginPage(),
-        DefaultRoutes.homeRoute: (context) => HomePage(),
-        DefaultRoutes.loginRoute: (context) => LoginPage(),
-        DefaultRoutes.cartRoute: (context) => CartPage(),
-
+        MyRoutes.homeRoute: (context) => HomePage(),
+        MyRoutes.loginRoute: (context) => LoginPage(),
+        MyRoutes.cartRoute: (context) => CartPage(),
       },
     );
   }

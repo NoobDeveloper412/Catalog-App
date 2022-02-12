@@ -1,13 +1,12 @@
 import 'package:catalog_app/utils/routes.dart';
-import 'package:catalog_app/widgets/themes.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
 class LoginPage extends StatefulWidget {
+  const LoginPage({Key key}) : super(key: key);
+
   @override
-  _LoginPageState createState() {
-    return _LoginPageState();
-  }
+  _LoginPageState createState() => _LoginPageState();
 }
 
 class _LoginPageState extends State<LoginPage> {
@@ -17,12 +16,12 @@ class _LoginPageState extends State<LoginPage> {
   final _formKey = GlobalKey<FormState>();
 
   moveToHome(BuildContext context) async {
-    if (_formKey.currentState!.validate()) {
+    if (_formKey.currentState.validate()) {
       setState(() {
         changeButton = true;
       });
       await Future.delayed(const Duration(seconds: 1));
-      await Navigator.pushNamed(context, DefaultRoutes.homeRoute);
+      await Navigator.pushNamed(context, MyRoutes.homeRoute);
       setState(() {
         changeButton = false;
       });
@@ -31,8 +30,9 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        body: SingleChildScrollView(
+    return Material(
+        color: context.canvasColor,
+        child: SingleChildScrollView(
           child: Form(
             key: _formKey,
             child: Column(
@@ -44,7 +44,13 @@ class _LoginPageState extends State<LoginPage> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                "Welcome".text.xl5.bold.color(context.theme.accentColor).make(),
+                Text(
+                  "Welcome $name",
+                  style: const TextStyle(
+                    fontSize: 28,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
                 const SizedBox(
                   height: 20.0,
                 ),
@@ -59,15 +65,13 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: "Username",
                         ),
                         validator: (value) {
-                          if (value!.isEmpty) {
+                          if (value.isEmpty) {
                             return "Username cannot be empty";
-                          } else if (value.length < 8) {
-                            return "Username has to be at least 8 characters long.";
                           }
 
                           return null;
                         },
-                        onChanged: (value) async {
+                        onChanged: (value) {
                           name = value;
                           setState(() {});
                         },
@@ -79,21 +83,20 @@ class _LoginPageState extends State<LoginPage> {
                           labelText: "Password",
                         ),
                         validator: (value) {
-                          if (value != null) {
-                            if (value.isEmpty) {
-                              return "Password cannot be empty";
-                            } else if (value.length < 6) {
-                              return "Password length should be at least 6 characters long.";
-                            }
-                            return null;
+                          if (value.isEmpty) {
+                            return "Password cannot be empty";
+                          } else if (value.length < 6) {
+                            return "Password length should be atleast 6";
                           }
+
+                          return null;
                         },
                       ),
                       const SizedBox(
                         height: 40.0,
                       ),
                       Material(
-                        color: Colors.deepPurple,
+                        color: context.theme.buttonColor,
                         borderRadius:
                             BorderRadius.circular(changeButton ? 50 : 8),
                         child: InkWell(
@@ -110,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                                   )
                                 : const Text(
                                     "Login",
-                                    style: const TextStyle(
+                                    style: TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18),

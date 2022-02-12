@@ -1,11 +1,11 @@
-import 'dart:convert';
-import 'package:catalog_app/models/catalogModel.dart';
+import 'package:catalog_app/models/catalog.dart';
 import 'package:catalog_app/utils/routes.dart';
 import 'package:catalog_app/widgets/home_widgets/catalog_header.dart';
 import 'package:catalog_app/widgets/home_widgets/catalog_list.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'dart:convert';
 import 'package:velocity_x/velocity_x.dart';
 
 class HomePage extends StatefulWidget {
@@ -15,7 +15,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   var products;
-  late var foundProducts = [];
+  var foundProducts;
 
   var newResults;
 
@@ -31,14 +31,14 @@ class _HomePageState extends State<HomePage> {
         await rootBundle.loadString("assets/files/catalog.json");
     final decodedData = jsonDecode(catalogJson);
     var productsData = decodedData["products"];
-    products = List.from(productsData)
+    CatalogModel.items = List.from(productsData)
         .map<Item>((item) => Item.fromMap(item))
         .toList();
+    products =  CatalogModel.items;
 
     setState(() {
       foundProducts = products;
-    });
-  }
+    });  }
 
   void searchProduct(String value) {
     var results = [];
@@ -75,10 +75,9 @@ class _HomePageState extends State<HomePage> {
       child: Scaffold(
           backgroundColor: context.canvasColor,
           floatingActionButton: FloatingActionButton(
-            onPressed: () =>
-                Navigator.pushNamed(context, DefaultRoutes.cartRoute),
+            onPressed: () => Navigator.pushNamed(context, MyRoutes.cartRoute),
             backgroundColor: context.theme.buttonColor,
-            child: Icon(
+            child: const Icon(
               CupertinoIcons.cart,
               color: Colors.white,
             ),
@@ -95,7 +94,7 @@ class _HomePageState extends State<HomePage> {
                     decoration: const InputDecoration(
                         labelText: 'Search...', suffixIcon: Icon(Icons.search)),
                   ),
-                  if (foundProducts.isNotEmpty)
+                  if (CatalogModel.items.isNotEmpty)
                     CatalogList(
                       foundProducts: foundProducts,
                     ).py16().expand()

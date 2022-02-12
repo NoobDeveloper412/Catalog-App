@@ -1,23 +1,15 @@
-import 'package:catalog_app/models/catalogModel.dart';
-import 'package:catalog_app/screens/HomeDetailsPage.dart';
-import 'package:catalog_app/widgets/home_widgets/add_to_cart.dart';
+import 'package:catalog_app/models/catalog.dart';
+import 'package:catalog_app/pages/home_detail_page.dart';
 import 'package:flutter/material.dart';
 import 'package:velocity_x/velocity_x.dart';
 
-import 'catalog_image.dart';
-
-import 'package:catalog_app/models/catalogModel.dart';
-import 'package:catalog_app/screens/HomeDetailsPage.dart';
-import 'package:catalog_app/widgets/home_widgets/add_to_cart.dart';
-import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
-
+import 'add_to_cart.dart';
 import 'catalog_image.dart';
 
 class CatalogList extends StatelessWidget {
   var foundProducts;
 
-  CatalogList({Key? key, required this.foundProducts}) : super(key: key);
+  CatalogList({Key key, @required this.foundProducts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +35,9 @@ class CatalogList extends StatelessWidget {
 class CatalogItem extends StatelessWidget {
   final Item catalog;
 
-  const CatalogItem({Key? key, required this.catalog}) : super(key: key);
+  const CatalogItem({Key key, @required this.catalog})
+      : assert(catalog != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -69,16 +63,7 @@ class CatalogItem extends StatelessWidget {
                 buttonPadding: EdgeInsets.zero,
                 children: [
                   "\$${catalog.price}".text.bold.xl.make(),
-                  ElevatedButton(
-                    onPressed: () {},
-                    style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all(
-                            context.theme.buttonColor),
-                        shape: MaterialStateProperty.all(
-                          StadiumBorder(),
-                        )),
-                    child: "Add to cart".text.make(),
-                  )
+                  AddToCart(catalog: catalog)
                 ],
               ).pOnly(right: 8.0)
             ],
