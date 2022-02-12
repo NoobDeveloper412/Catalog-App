@@ -26,29 +26,29 @@ class Item {
   final String image;
 
   Item({
-    required this.id,
-    required this.name,
-    required this.desc,
-    required this.price,
-    required this.color,
-    required this.image,
+   required this.id,
+   required this.name,
+   required this.desc,
+   required this.price,
+   required this.color,
+   required this.image,
   });
 
   Item copyWith({
-    required int id,
-    required String name,
-    required String desc,
-    required num price,
-    required String color,
-    required String image,
+   required int id,
+   required String name,
+   required String desc,
+  required  num price,
+  required  String color,
+  required  String image,
   }) {
     return Item(
-      id: id,
-      name: name,
-      desc: desc,
-      price: price,
-      color: color,
-      image: image,
+      id: id ,
+      name: name ,
+      desc: desc ,
+      price: price ,
+      color: color ,
+      image: image ,
     );
   }
 
@@ -64,6 +64,7 @@ class Item {
   }
 
   factory Item.fromMap(Map<String, dynamic> map) {
+
     return Item(
       id: map['id'],
       name: map['name'],

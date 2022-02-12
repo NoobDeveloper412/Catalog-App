@@ -20,8 +20,13 @@ class HomeDetailPage extends StatelessWidget {
           buttonPadding: EdgeInsets.zero,
           children: [
             "\$${catalog.price}".text.bold.xl4.red800.make(),
-            AddToCart(
-              catalog: catalog,
+            ElevatedButton(
+              onPressed: () {},
+              style: ButtonStyle(
+                backgroundColor:
+                    MaterialStateProperty.all(context.theme.buttonColor),
+              ),
+              child: "Add to cart".text.make(),
             ).wh(120, 50)
           ],
         ).p32(),

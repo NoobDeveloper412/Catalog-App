@@ -26,7 +26,7 @@ class _HomePageState extends State<HomePage> {
   }
 
   loadData() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(Duration(seconds: 2));
     final catalogJson =
         await rootBundle.loadString("assets/files/catalog.json");
     final decodedData = jsonDecode(catalogJson);
@@ -78,7 +78,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () =>
                 Navigator.pushNamed(context, DefaultRoutes.cartRoute),
             backgroundColor: context.theme.buttonColor,
-            child: const Icon(
+            child: Icon(
               CupertinoIcons.cart,
               color: Colors.white,
             ),
@@ -89,7 +89,7 @@ class _HomePageState extends State<HomePage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const CatalogHeader(),
+                  CatalogHeader(),
                   TextField(
                     onChanged: (value) => searchProduct(value),
                     decoration: const InputDecoration(
@@ -100,7 +100,7 @@ class _HomePageState extends State<HomePage> {
                       foundProducts: foundProducts,
                     ).py16().expand()
                   else
-                    CircularProgressIndicator().centered().expand(),
+                    const CircularProgressIndicator().centered().expand(),
                 ],
               ),
             ),
