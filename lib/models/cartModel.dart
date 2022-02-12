@@ -1,8 +1,14 @@
 import 'catalogModel.dart';
 
 class CartModel {
+  static final cartModel = CartModel._internal();
   // catalog field
-  CatalogModel _catalog;
+
+  CartModel._internal();
+
+  factory CartModel() => cartModel;
+
+  late CatalogModel _catalog;
 
   // Collection of IDs - store Ids of each item
   final List<int> _itemIds = [];
@@ -11,7 +17,6 @@ class CartModel {
   CatalogModel get catalog => _catalog;
 
   set catalog(CatalogModel newCatalog) {
-    assert(newCatalog != null);
     _catalog = newCatalog;
   }
 
