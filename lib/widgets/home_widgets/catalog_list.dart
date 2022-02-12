@@ -8,17 +8,14 @@ import 'catalog_image.dart';
 class CatalogList extends StatelessWidget {
   var foundProducts;
 
-  CatalogList({
-    Key? key,
-    required this.foundProducts,
-  }) : super(key: key);
+  CatalogList({Key? key, required this.foundProducts}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
       shrinkWrap: true,
       itemCount: foundProducts.length,
-     itemBuilder: (context, index) {
+      itemBuilder: (context, index) {
         final catalog = foundProducts[index];
         return InkWell(
           onTap: () => Navigator.push(
@@ -37,7 +34,9 @@ class CatalogList extends StatelessWidget {
 class CatalogItem extends StatelessWidget {
   final Item catalog;
 
-  const CatalogItem({Key? key, required this.catalog}) : super(key: key);
+  const CatalogItem({Key key, @required this.catalog})
+      : assert(catalog != null),
+        super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -66,9 +65,11 @@ class CatalogItem extends StatelessWidget {
                   ElevatedButton(
                     onPressed: () {},
                     style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(context.theme.buttonColor),
-                    ),
+                        backgroundColor: MaterialStateProperty.all(
+                            context.theme.buttonColor),
+                        shape: MaterialStateProperty.all(
+                          StadiumBorder(),
+                        )),
                     child: "Add to cart".text.make(),
                   )
                 ],
